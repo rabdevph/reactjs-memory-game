@@ -8,16 +8,19 @@
 
 body {
   font-family: system-ui;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .app {
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 16px;
   min-height: 100vh;
-  padding: 32px;
+  max-width: 964px;
 }
 
 .game {
@@ -25,11 +28,32 @@ body {
   flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
-  min-height: 490px;
-  max-width: 1064px;
+  min-height: 450px;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.game-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.game-title > .logo {
+  height: 30px;
+}
+
+.game-title > .text {
+  font-size: 0.675rem;
 }
 
 .character-card {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
 }
@@ -45,6 +69,6 @@ body {
 }
 
 .character-image {
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
 }
