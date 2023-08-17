@@ -9,3 +9,42 @@
 body {
   font-family: system-ui;
 }
+
+.app {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.game {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  min-height: 490px;
+  max-width: 1064px;
+}
+
+.character-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.character-name {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.character-image {
+  height: 200px;
+  width: 200px;
+}
