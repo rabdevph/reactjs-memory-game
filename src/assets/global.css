@@ -13,6 +13,7 @@ body {
   justify-content: center;
 }
 
+/* APP */
 .app {
   display: flex;
   justify-content: center;
@@ -20,55 +21,101 @@ body {
   flex-direction: column;
   gap: 16px;
   min-height: 100vh;
-  max-width: 964px;
+  width: 964px;
 }
 
-.game {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  min-height: 450px;
-}
-
-.game-header {
+/* HEADER */
+.header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
-.game-title {
+.title {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
 }
 
-.game-title > .logo {
+.title > .logo {
   height: 30px;
 }
 
-.game-title > .text {
+.title > .text {
   font-size: 0.675rem;
 }
 
-.character-card {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
+.scores {
+  font-size: 0.75rem;
 }
 
-.character-name {
-  background-color: #3b82f6;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: bold;
-  padding: 12px;
-  text-align: center;
-  width: 100%;
+/* GAME */
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.character-card {
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  height: 120px;
+  width: 120px;
 }
 
 .character-image {
-  height: 180px;
-  width: 180px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.play-again {
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 450px;
+  width: 964px;
+}
+
+.play-again.lose {
+  background-color: #ef4444;
+}
+
+.play-again.win {
+  background-color: #22c55e;
+}
+
+.game-over {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.play-again-button {
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  padding: 12px;
+}
+
+.play-again-button:active {
+  background-color: #d1d5db;
 }

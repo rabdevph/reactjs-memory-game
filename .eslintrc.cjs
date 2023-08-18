@@ -6,7 +6,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/recommended',
-    'plugin:jsx-a11y/recommended',
     'eslint-config-prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],

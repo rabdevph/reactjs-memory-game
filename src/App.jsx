@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { Card } from './components/Card.jsx';
+import { Button } from './components/Button.jsx';
+
 import logo from './assets/RnM.png';
 
 const App = () => {
-  const [charCount, setCharCount] = useState(10);
+  const [charCount, setCharCount] = useState(6);
   const [characters, setCharacters] = useState([]);
   const [selectedCharacers, setSelectedCharacters] = useState([]);
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [winner, setWinner] = useState(false);
 
   const getData = async (count) => {
     try {
@@ -32,56 +39,85 @@ const App = () => {
     return array;
   };
 
-  // shuffle characters array
+  const updateScores = () => {
+    setScore((prevScore) => {
+      const newScore = prevScore + 1;
+
+      if (newScore >= bestScore) {
+        setBestScore(newScore);
+      }
+
+      return newScore;
+    });
+  };
+
   const handleShuffle = () => {
     const shuffledArray = shuffleArray([...characters]);
     setCharacters(shuffledArray);
   };
 
-  const handleClick = (charName) => {
-    // shuffle every click
+  const handleClickCard = (charName) => {
     handleShuffle();
     if (selectedCharacers.includes(charName)) {
-      // game over? or create attempt state for 3 chances
-      console.log(`${charName} already selected.`);
+      setGameOver(true);
     } else {
-      // insert character to selected characters array
-      setSelectedCharacters([...selectedCharacers, charName]);
+      setSelectedCharacters((prevSelectedCharacters) => {
+        const updatedSelectedCharacters = [...prevSelectedCharacters, charName];
+
+        if (updatedSelectedCharacters.length === characters.length) {
+          setGameOver(true);
+          setWinner(true);
+          setSelectedCharacters([]);
+        }
+        console.log(updatedSelectedCharacters);
+        return updatedSelectedCharacters;
+      });
+
+      updateScores();
     }
   };
 
-  const handleKeyDown = (event, charName) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      handleClick(charName);
-    }
+  const handleClickPlayAgain = () => {
+    setGameOver(false);
+    setScore(0);
+    setSelectedCharacters([]);
+    setWinner(false);
   };
-
-  console.log(selectedCharacers);
-  console.log('re-render');
 
   return (
     <div className="app">
-      <div className="game-header">
-        <div className="game-title">
+      <div className="header">
+        <div className="title">
           <img className="logo" src={logo} alt="" />
           <p className="text">memory game</p>
         </div>
-        <div className="scores">SCORES</div>
+        <div className="scores">
+          <p className="current-score">SCORE: {score}</p>
+          <p className="best-score">BEST SCORE: {bestScore}</p>
+        </div>
       </div>
-      <div className="game">
-        {characters.map((character) => (
-          <div
-            className="character-card"
-            key={character.id}
-            onClick={() => handleClick(character.name)}
-            onKeyDown={(e) => handleKeyDown(e, character.name)}
-            role="button"
-            tabIndex="0"
-          >
-            <p className="character-name">{character.name}</p>
-            <img className="character-image" src={character.image} alt={`${character.name}`} />
+      <div className="game-wrapper">
+        {gameOver ? (
+          <div className={`play-again  ${winner ? 'win' : 'lose'}`}>
+            {winner ? (
+              <p className="game-over">GAME OVER! YOU WIN!</p>
+            ) : (
+              <p className="game-over">GAME OVER! YOU LOSE!</p>
+            )}
+            <Button handleClickPlayAgain={handleClickPlayAgain} />
           </div>
-        ))}
+        ) : (
+          <div className="cards">
+            {characters.map((character) => (
+              <Card
+                key={character.id}
+                charName={character.name}
+                charImage={character.image}
+                handleClickCard={handleClickCard}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
